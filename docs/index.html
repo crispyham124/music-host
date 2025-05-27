@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cozy Playlist</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f1ea;
+      padding: 40px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      background: #dcd6f7;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #track-title {
+      margin-top: 30px;
+      font-size: 18px;
+      color: #4b3f72;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Potion of Calm</h1>
+  <button onclick="startPlaylist()">Play Calm Tracks</button>
+  <div id="track-title">No track playing</div>
+
+  <audio id="bg-music" preload="auto"></audio>
+
+  <script>
+    const playlist = [
+      { title: "Raindrops on Leaves", file: "track1.mp3" },
+      { title: "Soft Twilight", file: "track2.mp3" },
+      { title: "Gentle Wind", file: "track3.mp3" },
+      { title: "Distant Shore", file: "track4.mp3" }
+    ];
+
+    const audio = document.getElementById("bg-music");
+    const title = document.getElementById("track-title");
+    let current = 0;
+
+    function updateTitle() {
+      title.textContent = "Now Playing: " + playlist[current].title;
+    }
+
+    function startPlaylist() {
+      audio.src = playlist[current].file;
+      audio.play();
+      updateTitle();
+    }
+
+    audio.onended = () => {
+      current = (current + 1) % playlist.length;
+      audio.src = playlist[current].file;
+      audio.play();
+      updateTitle();
+    };
+  </script>
+
+</body>
+</html>
